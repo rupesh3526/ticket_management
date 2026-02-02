@@ -24,7 +24,7 @@ For now, the project is being kept small so the core design can settle before ad
 
 ### ✅ Domain Setup
 - User entity implemented
-- Role enum defined (`USER`, `AGENT`, `ADMIN`)
+- Role defined (`USER`, `AGENT`, `ADMIN`)
 - JPA / Hibernate mappings configured
 
 ### ✅ Persistence
@@ -32,10 +32,12 @@ For now, the project is being kept small so the core design can settle before ad
 - Database connection tested and working
 
 ### ✅ Basic Verification
-- Test user creation working
-- Data stored and retrieved from the database
+- User creation flow tested and working
+- Database CRUD operations verified
+- Ticket creation and update functionality enhanced and validated
 
-> Ticket-related functionality has not been started yet.
+
+
 
 ---
 
@@ -43,7 +45,7 @@ For now, the project is being kept small so the core design can settle before ad
 
 The following items are **not implemented yet** and will stay out of scope until the foundation is complete:
 
-- Ticket entity and workflow
+
 - Authentication and authorization
 - Role-based access control
 - Audit logging
