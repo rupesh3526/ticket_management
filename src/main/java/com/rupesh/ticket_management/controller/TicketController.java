@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rupesh.ticket_management.EntityDTO.TicketDTO;
-import com.rupesh.ticket_management.EntityDTO.TicketResponseDTO;
+import com.rupesh.ticket_management.entityDto.TicketDTO;
+import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
 import com.rupesh.ticket_management.service.TicketService;
 
 import jakarta.validation.Valid;

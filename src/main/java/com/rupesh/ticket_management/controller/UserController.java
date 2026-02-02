@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rupesh.ticket_management.EntityDTO.UserDTO;
-import com.rupesh.ticket_management.EntityDTO.UserResponseDTO;
+import com.rupesh.ticket_management.entityDto.UserDTO;
+import com.rupesh.ticket_management.entityDto.response.UserResponseDTO;
 import com.rupesh.ticket_management.service.UserService;
 
 import jakarta.validation.Valid;

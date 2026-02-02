@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.Entity;
+package com.rupesh.ticket_management.entity;
 
 import java.util.List;
 

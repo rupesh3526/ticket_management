@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.serviceImplementation;
+package com.rupesh.ticket_management.service.impl;
 
 
 import org.modelmapper.ModelMapper;
@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.rupesh.ticket_management.Entity.Role;
-import com.rupesh.ticket_management.Entity.User;
-import com.rupesh.ticket_management.EntityDTO.UserDTO;
-import com.rupesh.ticket_management.EntityDTO.UserResponseDTO;
-import com.rupesh.ticket_management.Jpa.RoleRepo;
-import com.rupesh.ticket_management.Jpa.UserRepo;
+import com.rupesh.ticket_management.entity.Role;
+import com.rupesh.ticket_management.entity.User;
+import com.rupesh.ticket_management.entityDto.UserDTO;
+import com.rupesh.ticket_management.entityDto.response.UserResponseDTO;
+import com.rupesh.ticket_management.repository.RoleRepo;
+import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.service.UserService;
 
 import jakarta.transaction.Transactional;

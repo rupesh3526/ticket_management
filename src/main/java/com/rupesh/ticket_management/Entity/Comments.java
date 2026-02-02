@@ -1,7 +1,6 @@
-package com.rupesh.ticket_management.Entity;
+package com.rupesh.ticket_management.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

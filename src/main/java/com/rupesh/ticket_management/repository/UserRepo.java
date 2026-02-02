@@ -1,10 +1,10 @@
-package com.rupesh.ticket_management.Jpa;
+package com.rupesh.ticket_management.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.rupesh.ticket_management.Entity.User;
+import com.rupesh.ticket_management.entity.User;
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer>{
 	
