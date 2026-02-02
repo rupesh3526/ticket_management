@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.service;
+package com.rupesh.ticket_management.serviceImplementation;
 
 
 import org.modelmapper.ModelMapper;
@@ -13,6 +13,7 @@ import com.rupesh.ticket_management.EntityDTO.UserDTO;
 import com.rupesh.ticket_management.EntityDTO.UserResponseDTO;
 import com.rupesh.ticket_management.Jpa.RoleRepo;
 import com.rupesh.ticket_management.Jpa.UserRepo;
+import com.rupesh.ticket_management.service.UserService;
 
 import jakarta.transaction.Transactional;
 

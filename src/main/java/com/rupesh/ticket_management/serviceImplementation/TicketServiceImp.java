@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.service;
+package com.rupesh.ticket_management.serviceImplementation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +16,7 @@ import com.rupesh.ticket_management.EntityDTO.TicketResponseDTO;
 import com.rupesh.ticket_management.Jpa.TicketRepo;
 import com.rupesh.ticket_management.Jpa.UserRepo;
 import com.rupesh.ticket_management.security.CreaterProvider;
+import com.rupesh.ticket_management.service.TicketService;
 
 import jakarta.transaction.Transactional;
 
