@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.EntityDTO;
+package com.rupesh.ticket_management.entityDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

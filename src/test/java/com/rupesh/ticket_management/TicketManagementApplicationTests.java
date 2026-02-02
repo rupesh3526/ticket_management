@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
-import com.rupesh.ticket_management.Entity.User;
-import com.rupesh.ticket_management.EntityDTO.UserDTO;
-import com.rupesh.ticket_management.Jpa.RoleRepo;
-import com.rupesh.ticket_management.Jpa.UserRepo;
+import com.rupesh.ticket_management.entity.User;
+import com.rupesh.ticket_management.entityDto.UserDTO;
+import com.rupesh.ticket_management.repository.RoleRepo;
+import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.service.UserService;
 
 import jakarta.transaction.Transactional;

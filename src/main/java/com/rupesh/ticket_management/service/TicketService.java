@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.rupesh.ticket_management.EntityDTO.TicketDTO;
-import com.rupesh.ticket_management.EntityDTO.TicketResponseDTO;
+import com.rupesh.ticket_management.entityDto.TicketDTO;
+import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
 
 @Service
 public interface TicketService{

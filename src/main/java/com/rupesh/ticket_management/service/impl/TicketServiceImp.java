@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.serviceImplementation;
+package com.rupesh.ticket_management.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,12 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.rupesh.ticket_management.Entity.Ticket;
-import com.rupesh.ticket_management.Entity.User;
-import com.rupesh.ticket_management.EntityDTO.TicketDTO;
-import com.rupesh.ticket_management.EntityDTO.TicketResponseDTO;
-import com.rupesh.ticket_management.Jpa.TicketRepo;
-import com.rupesh.ticket_management.Jpa.UserRepo;
+import com.rupesh.ticket_management.entity.Ticket;
+import com.rupesh.ticket_management.entity.User;
+import com.rupesh.ticket_management.entityDto.TicketDTO;
+import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
+import com.rupesh.ticket_management.repository.TicketRepo;
+import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.security.CreaterProvider;
 import com.rupesh.ticket_management.service.TicketService;
 

@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.Exception;
+package com.rupesh.ticket_management.exception;
 
 import java.util.NoSuchElementException;
 

@@ -2,8 +2,8 @@ package com.rupesh.ticket_management.security;
 
 import org.springframework.stereotype.Component;
 
-import com.rupesh.ticket_management.Entity.User;
-import com.rupesh.ticket_management.Jpa.UserRepo;
+import com.rupesh.ticket_management.entity.User;
+import com.rupesh.ticket_management.repository.UserRepo;
 @Component
 public class CreaterProviderImp implements  CreaterProvider {
 
