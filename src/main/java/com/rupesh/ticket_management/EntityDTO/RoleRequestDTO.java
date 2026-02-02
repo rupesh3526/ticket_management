@@ -20,6 +20,6 @@ public class RoleRequestDTO {
 	private int id;
 	private String name;
 	
-	private List<UserRequestDTO> userlist;
+	private List<UserResponseDTO> userlist;
 
 }

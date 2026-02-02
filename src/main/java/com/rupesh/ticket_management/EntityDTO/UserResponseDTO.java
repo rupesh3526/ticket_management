@@ -20,20 +20,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-
-public class UserRequestDTO {
+public class UserResponseDTO {
 	
 	private int id;
 	private String name;
 	private String email;
-	private String password;
-
 	
+	private String  role;
 	
-	private RoleRequestDTO role;
-	
-//	private List<TicketDTO> createdTicket;
-	
-	//private List<TicketDTO> assignedTicket;
+	private List<TicketResponseDTO> createdTicket;
+	private List<TicketResponseDTO> assignedTicket;
 
 }

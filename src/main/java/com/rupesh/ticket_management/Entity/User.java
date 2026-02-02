@@ -3,6 +3,7 @@ package com.rupesh.ticket_management.Entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "users")
 public class User {
 	@Id
@@ -33,8 +35,10 @@ public class User {
 	@JsonIgnore
 	private Role role;
 	@OneToMany(mappedBy = "created_by")
+	@JsonIgnore
 	private List<Ticket> createdTicket;
 	@OneToMany(mappedBy = "assigned_to")
+	@JsonIgnore
 	private List<Ticket> assignedTicket;
 
 }
