@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
 public class Comments {
 	@Id
@@ -32,6 +34,7 @@ public class Comments {
 	private Ticket ticket;
 	@ManyToOne
 	@JoinColumn(name = "User_id", nullable = false)
+	@JsonIgnore
 	private User user;
 
 	private LocalDateTime created_at;

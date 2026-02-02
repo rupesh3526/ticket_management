@@ -1,13 +1,15 @@
 package com.rupesh.ticket_management.service;
 
-import org.springframework.stereotype.Service;
-
-import com.rupesh.ticket_management.Entity.User;
+import org.springframework.http.ResponseEntity;
 import com.rupesh.ticket_management.EntityDTO.UserDTO;
+import com.rupesh.ticket_management.EntityDTO.UserResponseDTO;
 
-@Service
+
 public interface UserService {
 	
-	void addUser(UserDTO user);
+	ResponseEntity<String> addUser(UserDTO user);
+	ResponseEntity<UserResponseDTO> getUser(int Id);
+	
+
 
 }
