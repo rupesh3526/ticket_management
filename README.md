@@ -67,18 +67,18 @@ The following items are **not implemented yet** and will stay out of scope until
 ---
 
 ## 📁 Current Project Structure
-
+```text
 ticket-management
-│
-├── model // Domain entities (User, Role)
-├── repository // JPA repositories
-├── service // Basic user logic
-├── controller // Test endpoints only
-└── dto // Request models
-
-yaml
-Copy code
-
+|
+|-- Entity
+|-- EntityDTO
+|-- Exception
+|-- controller
+|-- repository
+|-- security
+|-- service
+|-- TicketManagementApplication.java
+```
 This structure will change only when new features are actually added.
 
 ---
