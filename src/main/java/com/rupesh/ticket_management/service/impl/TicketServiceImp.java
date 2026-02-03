@@ -38,11 +38,11 @@ public class TicketServiceImp implements TicketService {
 
 		// Set who created the ticket by using a auth createdProvider method so future
 		// implementation of security can be easy
-		User ticketCreater = createrProvider.getCreater(userRepo, ticketDTO.getCreated_by());
-		ticket.setCreated_by(ticketCreater);
+		User ticketCreater = createrProvider.getCreater(userRepo, ticketDTO.getCreatedBy());
+		ticket.setCreatedBy(ticketCreater);
 		// Set ticket assigned to
-		User assignedUser = userRepo.findById(ticketDTO.getAssigned_to()).orElseThrow();
-		ticket.setAssigned_to(assignedUser);
+		User assignedUser = userRepo.findById(ticketDTO.getAssignedTo()).orElseThrow();
+		ticket.setAssignedTo(assignedUser);
 		// ticket.setComments(null);
 
 		ticketRepo.save(ticket);
@@ -55,15 +55,19 @@ public class TicketServiceImp implements TicketService {
 	public ResponseEntity<List<TicketResponseDTO>> getTickets() {
 
 		List<Ticket> ticketList = ticketRepo.findAll();
-		List<TicketResponseDTO> ticketDTOList = ticketList.stream()
-				.map(ticket -> {
-					TicketResponseDTO dto = mapper.map(ticket, TicketResponseDTO.class);
-					dto.setAssigned_to(ticket.getAssigned_to().getName());
-					dto.setCreated_by(ticket.getCreated_by().getName());
-					return dto;
-								})
-					.collect(Collectors.toList());
+		List<TicketResponseDTO> ticketDTOList = ticketList.stream().map(ticket -> {
+			TicketResponseDTO dto = mapper.map(ticket, TicketResponseDTO.class);
+			dto.setAssignedTo(ticket.getAssignedTo().getName());
+			dto.setCreatedBy(ticket.getCreatedBy().getName());
+			return dto;
+		}).collect(Collectors.toList());
 		return ResponseEntity.ok().body(ticketDTOList);
+	}
+
+	@Override
+	public ResponseEntity<TicketResponseDTO> findTicketByIdWithComments() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

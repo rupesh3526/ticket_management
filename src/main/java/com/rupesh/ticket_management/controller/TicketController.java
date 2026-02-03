@@ -21,20 +21,23 @@ import jakarta.validation.Valid;
 public class TicketController {
 	@Autowired
 	private TicketService ticketService;
+
 	@GetMapping("ding")
 	public String dong() {
 		return "Dong";
 	}
-	
+
 	@PostMapping("/createTicket")
-	public ResponseEntity<String> createTicket(@Valid @RequestBody TicketDTO ticket){
- return ticketService.createTicket(ticket);
-}
+	public ResponseEntity<String> createTicket(@Valid @RequestBody TicketDTO ticket) {
+		return ticketService.createTicket(ticket);
+	}
+
+	@GetMapping("/getTickets")
+	public ResponseEntity<List<TicketResponseDTO>> getTickets() {
+		return ticketService.getTickets();
+
+	}
 	
-	@GetMapping("getTickets")
-	public ResponseEntity<List<TicketResponseDTO>> getTickets(){
-	return ticketService.getTickets();
 	
-}
 
 }

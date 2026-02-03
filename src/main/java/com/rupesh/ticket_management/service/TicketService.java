@@ -14,5 +14,6 @@ public interface TicketService{
 	ResponseEntity<String> createTicket(TicketDTO ticket);
 	
 	ResponseEntity<List<TicketResponseDTO>> getTickets();
+	ResponseEntity<TicketResponseDTO> findTicketByIdWithComments();
 	
 }

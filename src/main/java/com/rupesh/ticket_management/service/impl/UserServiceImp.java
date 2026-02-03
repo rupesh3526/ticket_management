@@ -43,7 +43,7 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<UserResponseDTO> getUser(int Id) {
+	public ResponseEntity<UserResponseDTO> getUser(Long Id) {
 		User user = userRepo.findById(Id).orElseThrow();
 		UserResponseDTO userResponse = mapper.map(user, UserResponseDTO.class);
 	userResponse.setRole(user.getRole().getName());

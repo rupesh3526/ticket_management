@@ -12,8 +12,8 @@ public class TicketResponseDTO {
 	private String description;
 	private String priority;
 	private String status;
-	private String created_by;
-	private String assigned_to;
+	private String createdBy;
+	private String assignedTo;
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
