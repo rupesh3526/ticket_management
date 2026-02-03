@@ -11,9 +11,10 @@ import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
 @Service
 public interface TicketService{
 
-	ResponseEntity<String> createTicket(TicketDTO ticket);
+	String createTicket(TicketDTO ticket);
 	
-	ResponseEntity<List<TicketResponseDTO>> getTickets();
-	ResponseEntity<TicketResponseDTO> findTicketByIdWithComments();
+	List<TicketResponseDTO> getTickets();
+	
+	TicketResponseDTO getTicketById(Long id);
 	
 }

@@ -1,7 +1,7 @@
 package com.rupesh.ticket_management.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +21,6 @@ import jakarta.validation.Valid;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
 
 	@GetMapping("ding")
 	public String dong() {
@@ -30,16 +29,15 @@ public class UserController {
 
 	@PostMapping("createUser")
 	public ResponseEntity<String> createUser(@Valid @RequestBody UserDTO userDto) {
-		
 
 		userService.addUser(userDto);
-		return ResponseEntity.ok("Succesfully user Created");
-
+		return ResponseEntity.status(HttpStatus.CREATED).body("User Successfully addded");
 	}
 
 	@GetMapping("/getUser/{Id}")
 	public ResponseEntity<UserResponseDTO> getUser(@Valid @PathVariable Long Id) {
-		return userService.getUser(Id);
+		UserResponseDTO	userResponse =userService.getUser(Id);
+		return		ResponseEntity.status(HttpStatus.OK).body(userResponse);
 	}
 
-	}
+}

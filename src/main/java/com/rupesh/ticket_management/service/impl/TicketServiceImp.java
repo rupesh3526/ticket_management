@@ -13,6 +13,7 @@ import com.rupesh.ticket_management.entity.Ticket;
 import com.rupesh.ticket_management.entity.User;
 import com.rupesh.ticket_management.entityDto.TicketDTO;
 import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
+import com.rupesh.ticket_management.exception.TickerNotFoundException;
 import com.rupesh.ticket_management.repository.TicketRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.security.CreaterProvider;
@@ -32,11 +33,11 @@ public class TicketServiceImp implements TicketService {
 	private CreaterProvider createrProvider;
 
 	@Transactional
-	public ResponseEntity<String> createTicket(TicketDTO ticketDTO) {
+	public String createTicket(TicketDTO ticketDTO) {
 
 		Ticket ticket = mapper.map(ticketDTO, Ticket.class);
 
-		// Set who created the ticket by using a auth createdProvider method so future
+		// Set who created the ticket by using a auth createdProvider method in future
 		// implementation of security can be easy
 		User ticketCreater = createrProvider.getCreater(userRepo, ticketDTO.getCreatedBy());
 		ticket.setCreatedBy(ticketCreater);
@@ -47,12 +48,13 @@ public class TicketServiceImp implements TicketService {
 
 		ticketRepo.save(ticket);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body("Ticket successfully created");
+		return "Ticket successfully created";
+			
 
 	}
 
 	@Override
-	public ResponseEntity<List<TicketResponseDTO>> getTickets() {
+	public List<TicketResponseDTO> getTickets() {
 
 		List<Ticket> ticketList = ticketRepo.findAll();
 		List<TicketResponseDTO> ticketDTOList = ticketList.stream().map(ticket -> {
@@ -61,13 +63,17 @@ public class TicketServiceImp implements TicketService {
 			dto.setCreatedBy(ticket.getCreatedBy().getName());
 			return dto;
 		}).collect(Collectors.toList());
-		return ResponseEntity.ok().body(ticketDTOList);
+		return ticketDTOList;
 	}
 
 	@Override
-	public ResponseEntity<TicketResponseDTO> findTicketByIdWithComments() {
-		// TODO Auto-generated method stub
-		return null;
+	public TicketResponseDTO getTicketById(Long id) {
+		Ticket ticket = ticketRepo.findById(id).orElseThrow(() -> new TickerNotFoundException(id));
+		TicketResponseDTO ticketDTO = mapper.map(ticket, TicketResponseDTO.class);
+		ticketDTO.setAssignedTo(ticket.getAssignedTo().getName());
+		ticketDTO.setCreatedBy(ticket.getCreatedBy().getName());
+
+		return  ticketDTO ;
 	}
 
 }

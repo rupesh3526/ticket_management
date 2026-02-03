@@ -8,8 +8,8 @@ import com.rupesh.ticket_management.entityDto.response.UserResponseDTO;
 
 public interface UserService {
 	
-	ResponseEntity<String> addUser(UserDTO user);
-	ResponseEntity<UserResponseDTO> getUser(Long Id);
+	void addUser(UserDTO user);
+	UserResponseDTO getUser(Long Id);
 	
 
 
