@@ -8,7 +8,7 @@ import com.rupesh.ticket_management.repository.UserRepo;
 public class CreaterProviderImp implements  CreaterProvider {
 
 	@Override
-	public User getCreater(UserRepo userRepo,int id) {
+	public User getCreater(UserRepo userRepo,Long id) {
 		
 		
 		return  userRepo.findById(id).orElseThrow();

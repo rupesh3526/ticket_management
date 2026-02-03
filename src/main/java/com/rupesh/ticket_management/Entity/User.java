@@ -34,10 +34,10 @@ public class User {
 	@JoinColumn(name = "role_id", nullable = false)
 	@JsonIgnore
 	private Role role;
-	@OneToMany(mappedBy = "created_by")
+	@OneToMany(mappedBy = "createdBy")
 	@JsonIgnore
 	private List<Ticket> createdTicket;
-	@OneToMany(mappedBy = "assigned_to")
+	@OneToMany(mappedBy = "assignedTo")
 	@JsonIgnore
 	private List<Ticket> assignedTicket;
 

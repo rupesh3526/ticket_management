@@ -21,19 +21,18 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
-public class Comments {
+public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String message;
 	@ManyToOne
-	@JoinColumn(name = "Ticket_id", nullable = false)
+	@JoinColumn(name = "ticket", nullable = false)
 	@JsonIgnore
 	private Ticket ticket;
 	@ManyToOne
-	@JoinColumn(name = "User_id", nullable = false)
-	@JsonIgnore
+	@JoinColumn(name = "user", nullable = false)
 	private User user;
 
 	private LocalDateTime created_at;

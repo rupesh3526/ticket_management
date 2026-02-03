@@ -13,7 +13,6 @@ import com.rupesh.ticket_management.repository.RoleRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.service.UserService;
 
-import jakarta.transaction.Transactional;
 
 @SpringBootTest
 @Rollback(false)
@@ -33,6 +32,7 @@ class TicketManagementApplicationTests {
         userDTO.setName("Rupesh4");
         userDTO.setEmail("rupesh4@test.com");
         userDTO.setRoleId(1);
+        roleRepo.count();
 
         // when
         userService.addUser(userDTO);

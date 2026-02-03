@@ -16,7 +16,7 @@ public class UserResponseDTO {
 	
 	private String  role;
 	
-	private List<TicketResponseDTO> createdTicket;
-	private List<TicketResponseDTO> assignedTicket;
+//	private List<String> createdTicket;
+	//private List<String> assignedTicket;
 
 }

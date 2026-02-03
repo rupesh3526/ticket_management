@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rupesh.ticket_management.entity.User;
 @Repository
-public interface UserRepo extends JpaRepository<User, Integer>{
+public interface UserRepo extends JpaRepository<User, Long>{
 	
 
 }

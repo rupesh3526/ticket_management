@@ -4,6 +4,6 @@ import com.rupesh.ticket_management.entity.User;
 import com.rupesh.ticket_management.repository.UserRepo;
 
 public interface CreaterProvider {
-	User getCreater(UserRepo userRepo, int id);
+	User getCreater(UserRepo userRepo, Long id);
 
 }

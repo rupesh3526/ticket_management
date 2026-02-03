@@ -34,16 +34,16 @@ public class Ticket {
 	private String priority;
 	private String status;
 	@ManyToOne
-	@JoinColumn(name = "created_by", nullable = false)
+	@JoinColumn(name = "createdBy", nullable = false)
 	@JsonIgnore
-	private User created_by;
+	private User createdBy;
 	@ManyToOne
-	@JoinColumn(name = "assigned_to", nullable = false)
+	@JoinColumn(name = "assignedTo", nullable = false)
 	@JsonIgnore
-	private User assigned_to;
+	private User assignedTo;
 	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<Comments> comments;
+	private List<Comment> comment;
 
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
