@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
 		cmnt.setTicket(ticketRepo.findById(cmntDTO.getTicketId()).orElseThrow());
 		cmnt.setUser(createrProvider.getCreater(userRepo, cmntDTO.getUserId()));
 		cmntRepo.save(cmnt);
-		return ResponseEntity.ok("Commented Successfully");
+		return ResponseEntity.status(HttpStatus.CREATED).body("Commented Successfully");
 	}
 
 	@Override

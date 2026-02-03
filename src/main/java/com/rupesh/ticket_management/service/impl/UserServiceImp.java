@@ -11,6 +11,8 @@ import com.rupesh.ticket_management.entity.Role;
 import com.rupesh.ticket_management.entity.User;
 import com.rupesh.ticket_management.entityDto.UserDTO;
 import com.rupesh.ticket_management.entityDto.response.UserResponseDTO;
+import com.rupesh.ticket_management.exception.DplicateEntryException;
+import com.rupesh.ticket_management.exception.UserNotFoundException;
 import com.rupesh.ticket_management.repository.RoleRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.service.UserService;
@@ -30,7 +32,11 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	@Transactional
-	public ResponseEntity<String>  addUser(UserDTO userDTO) {
+	public void  addUser(UserDTO userDTO) {
+		//check if user already exists or not 
+	if(	userRepo.findByEmail(userDTO.getEmail()).isPresent() )
+		throw new DplicateEntryException(userDTO.getEmail());
+	
 
 		Role role = roleRepo.findById(userDTO.getRoleId()).orElseThrow();
 		User user = new User();
@@ -39,15 +45,15 @@ public class UserServiceImp implements UserService {
 		user.setRole(role);
 		user.setPassword(userDTO.getPassword());
 		this.userRepo.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body("User Successfully addded"); 
+		 
 	}
 
 	@Override
-	public ResponseEntity<UserResponseDTO> getUser(Long Id) {
-		User user = userRepo.findById(Id).orElseThrow();
+	public UserResponseDTO getUser(Long Id) {
+		User user = userRepo.findById(Id).orElseThrow(()-> new UserNotFoundException(Id));
 		UserResponseDTO userResponse = mapper.map(user, UserResponseDTO.class);
 	userResponse.setRole(user.getRole().getName());
-		return ResponseEntity.ok(userResponse);
+		return userResponse;
 	}
 	
 	
