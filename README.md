@@ -20,7 +20,6 @@ For now, the project is being kept small so the core design can settle before ad
 
 ---
 
-## 🧱 Current Status (Implemented)
 
 ### ✅ Domain Setup
 - User entity implemented
@@ -85,7 +84,7 @@ This structure will change only when new features are actually added.
 
 ## 🧭 Development Roadmap
 
-### Phase 1 – Foundation (Current)
+### Phase 1 – Foundation 
 - Core domain entities
 - Database schema
 - Basic persistence
@@ -102,7 +101,7 @@ No additional features will be added in this phase.
 
 ---
 
-### Phase 3 – Access Control
+### Phase 3 – Access Control  (Current)
 - Authentication
 - Role-based authorization
 - Endpoint protection
