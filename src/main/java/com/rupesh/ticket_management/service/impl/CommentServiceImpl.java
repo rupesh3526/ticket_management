@@ -15,8 +15,8 @@ import com.rupesh.ticket_management.entityDto.response.CommentResponseDTO;
 import com.rupesh.ticket_management.repository.CommentRepo;
 import com.rupesh.ticket_management.repository.TicketRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
-import com.rupesh.ticket_management.security.CreaterProvider;
 import com.rupesh.ticket_management.service.CommentService;
+
 
 import jakarta.transaction.Transactional;
 @Service
@@ -25,8 +25,7 @@ public class CommentServiceImpl implements CommentService {
 	private CommentRepo cmntRepo;
 	@Autowired
 	private ModelMapper mapper;
-	@Autowired
-	private CreaterProvider createrProvider;
+	
 	@Autowired
 	private UserRepo userRepo;
 	@Autowired
@@ -40,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
 		Comment cmnt = new Comment();
 		cmnt.setMessage(cmntDTO.getMessage());
 		cmnt.setTicket(ticketRepo.findById(cmntDTO.getTicketId()).orElseThrow());
-		cmnt.setUser(createrProvider.getCreater(userRepo, cmntDTO.getUserId()));
+		cmnt.setUser(userRepo.findById(cmntDTO.getUserId()).orElseThrow());
 		cmntRepo.save(cmnt);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Commented Successfully");
 	}

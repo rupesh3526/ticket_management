@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,15 +27,15 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	@Column(length = 1000,nullable = false)
 	private String message;
-	@ManyToOne
-	@JoinColumn(name = "ticket", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CommentedOn", nullable = false)
 	@JsonIgnore
 	private Ticket ticket;
-	@ManyToOne
-	@JoinColumn(name = "user", nullable = false)
-	private User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CommentedBy", nullable = false)
+	private Users user;
 
 	private LocalDateTime created_at;
 

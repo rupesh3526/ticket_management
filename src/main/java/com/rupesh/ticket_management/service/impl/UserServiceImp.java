@@ -5,10 +5,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rupesh.ticket_management.entity.Role;
-import com.rupesh.ticket_management.entity.User;
+import com.rupesh.ticket_management.entity.Users;
 import com.rupesh.ticket_management.entityDto.UserDTO;
 import com.rupesh.ticket_management.entityDto.response.UserResponseDTO;
 import com.rupesh.ticket_management.exception.DplicateEntryException;
@@ -29,6 +30,8 @@ public class UserServiceImp implements UserService {
 	private ModelMapper mapper;
 	@Autowired
 	private RoleRepo roleRepo;
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
 	@Transactional
@@ -39,18 +42,18 @@ public class UserServiceImp implements UserService {
 	
 
 		Role role = roleRepo.findById(userDTO.getRoleId()).orElseThrow();
-		User user = new User();
+		Users user = new Users();
 		user.setName(userDTO.getName());
 		user.setEmail(userDTO.getEmail());
 		user.setRole(role);
-		user.setPassword(userDTO.getPassword());
+		user.setPassword(encoder.encode(userDTO.getPassword()));
 		this.userRepo.save(user);
 		 
 	}
 
 	@Override
 	public UserResponseDTO getUser(Long Id) {
-		User user = userRepo.findById(Id).orElseThrow(()-> new UserNotFoundException(Id));
+		Users user = userRepo.findById(Id).orElseThrow(()-> new UserNotFoundException(Id));
 		UserResponseDTO userResponse = mapper.map(user, UserResponseDTO.class);
 	userResponse.setRole(user.getRole().getName());
 		return userResponse;
