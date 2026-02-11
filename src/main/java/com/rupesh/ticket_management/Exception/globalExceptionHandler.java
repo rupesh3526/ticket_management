@@ -1,7 +1,5 @@
 package com.rupesh.ticket_management.exception;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -71,7 +69,14 @@ public class GlobalExceptionHandler {
 
 	}
 	
-	
+	@ExceptionHandler(NotAllowedException.class)
+	public ResponseEntity<Object> handleNotAllowedException(NotAllowedException ex,
+			HttpServletRequest request) {
+		ErrorResponse error = new ErrorResponse(HttpStatus.FORBIDDEN.value(), "Forbidden Action", ex.getMessage(),
+				request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+
+	}
 	
 	
 	
