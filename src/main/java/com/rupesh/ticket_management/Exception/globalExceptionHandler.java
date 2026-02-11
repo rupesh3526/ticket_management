@@ -3,10 +3,11 @@ package com.rupesh.ticket_management.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -21,6 +22,22 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 
 	}
+	
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<Object> handleTypeMismatch(
+	        MethodArgumentTypeMismatchException ex,
+	        HttpServletRequest request) {
+
+	    ErrorResponse error = new ErrorResponse(
+	        HttpStatus.BAD_REQUEST.value(),
+	        "Invalid Parameter",
+	        "Invalid value for parameter: " + ex.getName(),
+	        request.getRequestURI()
+	    );
+
+	    return ResponseEntity.badRequest().body(error);
+	}
+
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex,
@@ -77,6 +94,17 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 
 	}
+	
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex,
+			HttpServletRequest request) {
+		ErrorResponse error = new ErrorResponse(HttpStatus.FORBIDDEN.value(), "Forbidden Action", ex.getMessage(),
+				request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+
+	}
+	
 	
 	
 	
