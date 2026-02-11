@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,24 +23,32 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Table(name = "users")
-public class User {
+public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(nullable = false)
 	private String name;
-	@Column(unique = true)
+
+	@Column(unique = true, nullable = false)
 	private String email;
+
+	@Column(nullable = false)
 	private String password;
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", nullable = false)
 	@JsonIgnore
 	private Role role;
-	@OneToMany(mappedBy = "createdBy")
+
+	@OneToMany(mappedBy = "createdBy",fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Ticket> createdTicket;
-	@OneToMany(mappedBy = "assignedTo")
+
+	@OneToMany(mappedBy = "assignedTo",fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Ticket> assignedTicket;
 

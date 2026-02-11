@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
-import com.rupesh.ticket_management.entity.User;
+import com.rupesh.ticket_management.entity.Users;
 import com.rupesh.ticket_management.entityDto.UserDTO;
 import com.rupesh.ticket_management.repository.RoleRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
@@ -38,7 +38,7 @@ class TicketManagementApplicationTests {
         userService.addUser(userDTO);
 
         // then
-      User savedUser = userRepo.findAll().get(2);
+      Users savedUser = userRepo.findAll().get(2);
       System.out.println(savedUser.getName());
        assertNotNull(savedUser.getId());
 

@@ -1,6 +1,5 @@
 package com.rupesh.ticket_management.entityDto.response;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

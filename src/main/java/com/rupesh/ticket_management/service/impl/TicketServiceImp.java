@@ -5,18 +5,15 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rupesh.ticket_management.entity.Ticket;
-import com.rupesh.ticket_management.entity.User;
+import com.rupesh.ticket_management.entity.Users;
 import com.rupesh.ticket_management.entityDto.TicketDTO;
 import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
 import com.rupesh.ticket_management.exception.TickerNotFoundException;
 import com.rupesh.ticket_management.repository.TicketRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
-import com.rupesh.ticket_management.security.CreaterProvider;
 import com.rupesh.ticket_management.service.TicketService;
 
 import jakarta.transaction.Transactional;
@@ -29,27 +26,18 @@ public class TicketServiceImp implements TicketService {
 	private UserRepo userRepo;
 	@Autowired
 	private ModelMapper mapper;
-	@Autowired
-	private CreaterProvider createrProvider;
 
 	@Transactional
 	public String createTicket(TicketDTO ticketDTO) {
 
 		Ticket ticket = mapper.map(ticketDTO, Ticket.class);
-
-		// Set who created the ticket by using a auth createdProvider method in future
-		// implementation of security can be easy
-		User ticketCreater = createrProvider.getCreater(userRepo, ticketDTO.getCreatedBy());
+		Users ticketCreater = userRepo.findById(ticketDTO.getCreatedBy()).orElseThrow();
 		ticket.setCreatedBy(ticketCreater);
-		// Set ticket assigned to
-		User assignedUser = userRepo.findById(ticketDTO.getAssignedTo()).orElseThrow();
+		Users assignedUser = userRepo.findById(ticketDTO.getAssignedTo()).orElseThrow();
 		ticket.setAssignedTo(assignedUser);
-		// ticket.setComments(null);
-
 		ticketRepo.save(ticket);
 
 		return "Ticket successfully created";
-			
 
 	}
 
@@ -73,7 +61,7 @@ public class TicketServiceImp implements TicketService {
 		ticketDTO.setAssignedTo(ticket.getAssignedTo().getName());
 		ticketDTO.setCreatedBy(ticket.getCreatedBy().getName());
 
-		return  ticketDTO ;
+		return ticketDTO;
 	}
 
 }
