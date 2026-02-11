@@ -1,57 +1,84 @@
 # 🎫 Ticket Management System (Backend)
 
-A backend-focused Ticket Management System built using **Spring Boot and JPA**.  
-This repository currently contains the **foundation of the system** and is being built step by step.
+A secure, backend-focused Ticket Management System built using Spring Boot, Spring Security, and JPA.
 
-The project is still in progress and not feature-complete.
+This project simulates a realistic internal IT support system where users can raise tickets and access is strictly controlled based on roles and ownership.
 
----
-
-## 🎯 Project Intent
-
-The goal of this project is to build a **realistic internal IT support system**, similar to what companies use to manage issues and requests.
-
-The focus is on:
-- Clear role separation  
-- Controlled access to data and actions  
-- Being able to trace who did what and when  
-
-For now, the project is being kept small so the core design can settle before adding more features.
+The system is designed with clean architecture, security best practices, and clear separation of concerns.
 
 ---
 
+## Project Objective
 
-### ✅ Domain Setup
-- User entity implemented
-- Role defined (`USER`, `AGENT`, `ADMIN`)
-- JPA / Hibernate mappings configured
+The goal of this project is to build a production-style backend system that demonstrates:
 
-### ✅ Persistence
-- User repository implemented
-- Database connection tested and working
+- Secure authentication using JWT
+- Role-based access control (RBAC)
+- Ownership-based data protection
+- Clean layered architecture
+- Proper exception handling
+- Transaction integrity
 
-### ✅ Basic Verification
-- User creation flow tested and working
-- Database CRUD operations verified
-- Ticket creation and update functionality enhanced and validated
-
-
-
+This project focuses entirely on backend system design and security.
 
 ---
 
-## 🚫 Out of Scope (For Now)
 
-The following items are **not implemented yet** and will stay out of scope until the foundation is complete:
+### 🧱 Architecture Overview
 
+The application follows a layered architecture:
 
-- Authentication and authorization
-- Role-based access control
-- Audit logging
-- Security (JWT, Spring Security)
-- Validation and global exception handling
-- Pagination, filtering, or search
-- Deployment and infrastructure setup
+Controller → Service → Repository → Database
+- DTOs are used to separate persistence entities from API responses
+- Security logic is handled via Spring Security
+- Business rules are enforced at the service layer
+
+### 🔐 Security Implementation
+### ✅ Authentication
+- JWT-based authentication
+- Short-lived access tokens
+- Refresh token mechanism
+- Custom authentication flow using UserDetailsService
+
+### ✅ Authorization
+Role-Based Access Control (RBAC)
+- Roles: USER, AGENT, ADMIN
+- Endpoint-level access restrictions
+- Ownership-based checks (user can access own data; admin can access all)
+### ✅ Password Security
+- Passwords hashed using BCrypt before persistence
+- No plain-text password storage
+  
+### ✅ Error Handling
+- Custom exception hierarchy
+- Centralized global exception handling
+- Proper HTTP status codes (403, 404, etc.)
+  
+---
+
+### 📦 Core Features
+## 👤 User Management
+
+- User registration
+- Role assignment
+- Secure user retrieval with access control
+
+## 🎫 Ticket Management
+
+- Ticket creation
+- Ticket update
+- Ownership validation
+- Role-based restrictions
+
+## 🧾 Audit Support
+
+- createdAt, updatedAt, createdBy fields
+- Entity lifecycle tracking
+
+## 🔁 Transaction Management
+
+- Service-layer transaction integrity
+- Atomic database operations
 
 ---
 
@@ -61,7 +88,9 @@ The following items are **not implemented yet** and will stay out of scope until
 - Spring Boot  
 - Hibernate / JPA  
 - MySQL  
-- Maven  
+- Maven
+- Spring Security
+- Postman (API testing)
 
 ---
 
@@ -69,69 +98,37 @@ The following items are **not implemented yet** and will stay out of scope until
 ```text
 ticket-management
 |
-|-- Entity
-|-- EntityDTO
-|-- Exception
 |-- controller
-|-- repository
-|-- security
 |-- service
+|-- repository
+|-- entity
+|-- entityDto
+|-- security
+|-- exception
 |-- TicketManagementApplication.java
+
 ```
-This structure will change only when new features are actually added.
+---
+### 🔄 Example Security Flow
+- User logs in and receives JWT access + refresh token.
+- Access token is sent in Authorization header.
+- JWT filter validates token.
+- Spring Security sets Authentication in SecurityContext.
+- Service layer enforces:
+  - Role-based access
+  - Ownership validation
+  - Unauthorized access returns HTTP 403.
 
 ---
-
-## 🧭 Development Roadmap
-
-### Phase 1 – Foundation 
-- Core domain entities
-- Database schema
-- Basic persistence
-- Sanity checks
-
-No additional features will be added in this phase.
-
 ---
+📊 Current Status
 
-### Phase 2 – Ticket Core
-- Ticket entity
-- Ticket status lifecycle
-- Ownership and assignment rules
+- ✅ Authentication and Authorization implemented
+- ✅ RBAC working
+- ✅ Ownership-based access control verified
+- ✅ DTO separation
+- ✅ Transaction management
+- ✅ Custom exception handling
 
+🚧 Pagination, filtering, deployment, and infrastructure improvements planned.
 ---
-
-### Phase 3 – Access Control  (Current)
-- Authentication
-- Role-based authorization
-- Endpoint protection
-
----
-
-### Phase 4 – Audit & Traceability
-- Action logging
-- Change history
-- Admin visibility
-
----
-
-### Phase 5 – Hardening & Deployment
-- Validation
-- Security improvements
-- Dockerization and deployment
-
----
-
-## 📌 Development Notes
-
-- Features are added only after the current phase is complete
-- Scope creep is avoided on purpose
-- The README is updated only when the code changes
-
----
-
-## 📝 Status
-
-🚧 **Work in progress — foundation phase**
-
-This README reflects the current state of the codebase.
