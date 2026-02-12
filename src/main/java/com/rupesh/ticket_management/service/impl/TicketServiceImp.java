@@ -5,6 +5,10 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.rupesh.ticket_management.entity.Ticket;
@@ -12,6 +16,7 @@ import com.rupesh.ticket_management.entity.Users;
 import com.rupesh.ticket_management.entityDto.TicketDTO;
 import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
 import com.rupesh.ticket_management.exception.TickerNotFoundException;
+import com.rupesh.ticket_management.exception.UserNotFoundException;
 import com.rupesh.ticket_management.repository.TicketRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.service.TicketService;
@@ -42,16 +47,19 @@ public class TicketServiceImp implements TicketService {
 	}
 
 	@Override
-	public List<TicketResponseDTO> getTickets() {
-
-		List<Ticket> ticketList = ticketRepo.findAll();
-		List<TicketResponseDTO> ticketDTOList = ticketList.stream().map(ticket -> {
+	public Page<TicketResponseDTO> getTickets(Pageable page) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String email= auth.getName();
+	Users currentUser=userRepo.findByEmail(email).orElseThrow(()->  new UserNotFoundException("Authenticated user no longer exists"));
+	Page<Ticket> ticketPage	 = ticketRepo.findByCreatedBy(currentUser, page);
+		
+		Page<TicketResponseDTO> ticketDTOPage = ticketPage.map(ticket -> {
 			TicketResponseDTO dto = mapper.map(ticket, TicketResponseDTO.class);
 			dto.setAssignedTo(ticket.getAssignedTo().getName());
 			dto.setCreatedBy(ticket.getCreatedBy().getName());
 			return dto;
-		}).collect(Collectors.toList());
-		return ticketDTOList;
+		});
+		return ticketDTOPage;
 	}
 
 	@Override
@@ -62,6 +70,20 @@ public class TicketServiceImp implements TicketService {
 		ticketDTO.setCreatedBy(ticket.getCreatedBy().getName());
 
 		return ticketDTO;
+	}
+
+	@Override
+	public Page<TicketResponseDTO> getAllTickets(Pageable page) {
+		Page<Ticket> ticketPage = ticketRepo.findAll(page);
+		Page<TicketResponseDTO> pageDTO = ticketPage.map(ticket -> {
+			TicketResponseDTO dtoTicket = mapper.map(ticket, TicketResponseDTO.class);
+			if (ticket.getAssignedTo() != null) {
+	            dtoTicket.setAssignedTo(ticket.getAssignedTo().getName());
+	        }
+			dtoTicket.setCreatedBy(ticket.getCreatedBy().getName());
+			return dtoTicket;
+		});
+		return pageDTO;
 	}
 
 }
