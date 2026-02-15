@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rupesh.ticket_management.entityDto.TicketDTO;
-import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
+import com.rupesh.ticket_management.dto.TicketDTO;
+import com.rupesh.ticket_management.dto.response.TicketResponseDTO;
 import com.rupesh.ticket_management.service.TicketService;
 
 import jakarta.validation.Valid;

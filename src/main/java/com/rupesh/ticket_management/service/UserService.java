@@ -1,8 +1,8 @@
 package com.rupesh.ticket_management.service;
 
 
-import com.rupesh.ticket_management.entityDto.UserDTO;
-import com.rupesh.ticket_management.entityDto.response.UserResponseDTO;
+import com.rupesh.ticket_management.dto.UserDTO;
+import com.rupesh.ticket_management.dto.response.UserResponseDTO;
 
 public interface UserService {
 

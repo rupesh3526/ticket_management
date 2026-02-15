@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.rupesh.ticket_management.entityDto.TicketDTO;
-import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
+import com.rupesh.ticket_management.dto.TicketDTO;
+import com.rupesh.ticket_management.dto.response.TicketResponseDTO;
 
 @Service
 public interface TicketService{

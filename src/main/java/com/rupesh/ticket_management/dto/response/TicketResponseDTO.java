@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.entityDto.response;
+package com.rupesh.ticket_management.dto.response;
 
 import java.time.LocalDateTime;
 import lombok.Getter;

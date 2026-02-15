@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.entityDto.response;
+package com.rupesh.ticket_management.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

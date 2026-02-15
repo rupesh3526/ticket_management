@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Sort;
-import com.rupesh.ticket_management.entityDto.response.TicketResponseDTO;
-import com.rupesh.ticket_management.entityDto.response.UserResponseDTO;
+
+import com.rupesh.ticket_management.dto.response.TicketResponseDTO;
+import com.rupesh.ticket_management.dto.response.UserResponseDTO;
 import com.rupesh.ticket_management.service.TicketService;
 import com.rupesh.ticket_management.service.UserService;
 
@@ -43,7 +44,7 @@ public class AdminController {
 		return ResponseEntity.ok(ticketDTOPage);
 	}
 	
-	@GetMapping("updateRole")
+	@GetMapping("/updateRole")
 	public ResponseEntity<?> updateRole(@RequestParam(required = true ) Long userId , @RequestParam Integer roleId){
 	UserResponseDTO userDTO=	userService.updateRole(userId, roleId);
 	return ResponseEntity.ok(userDTO);
