@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,8 @@ public class Users {
 
 	@Column(nullable = false)
 	private String password;
+	@Column()
+	private Long token_version =0L;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", nullable = false)
@@ -51,5 +54,8 @@ public class Users {
 	@OneToMany(mappedBy = "assignedTo",fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Ticket> assignedTicket;
+	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+	@JsonIgnore 
+	private List<UserSession> session;
 
 }

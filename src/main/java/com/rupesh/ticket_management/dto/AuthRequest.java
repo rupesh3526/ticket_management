@@ -1,4 +1,4 @@
-package com.rupesh.ticket_management.entityDto;
+package com.rupesh.ticket_management.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

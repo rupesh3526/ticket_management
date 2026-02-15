@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rupesh.ticket_management.entityDto.CommentDTO;
-import com.rupesh.ticket_management.entityDto.response.CommentResponseDTO;
+import com.rupesh.ticket_management.dto.CommentDTO;
+import com.rupesh.ticket_management.dto.response.CommentResponseDTO;
 import com.rupesh.ticket_management.service.CommentService;
 
 import jakarta.validation.Valid;

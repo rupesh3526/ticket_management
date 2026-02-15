@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.rupesh.ticket_management.entityDto.CommentDTO;
-import com.rupesh.ticket_management.entityDto.response.CommentResponseDTO;
+import com.rupesh.ticket_management.dto.CommentDTO;
+import com.rupesh.ticket_management.dto.response.CommentResponseDTO;
 
 public interface CommentService {
 	
