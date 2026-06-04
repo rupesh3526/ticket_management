@@ -23,22 +23,18 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session ->
-            session.sessionCreationPolicy(
-                SessionCreationPolicy.STATELESS
-            )
-        );
+           http
+           .csrf(csrf->csrf.disable())
+           .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
            
             http  .authorizeHttpRequests(auth -> auth .requestMatchers("/auth/**").permitAll()
-            		.requestMatchers("/admin/**").hasRole("ADMIN")
+            		.requestMatchers("/admin/**").hasRole("Admin")
                     .anyRequest().authenticated()
                    
             )
            
 
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

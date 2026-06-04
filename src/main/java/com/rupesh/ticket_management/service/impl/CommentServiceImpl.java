@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
 	private TicketRepo ticketRepo;
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public ResponseEntity<String> createComment(CommentDTO cmntDTO) {
 		// Comment cmnt =mapper.map(cmntDTO, Comment.class);
 		Comment cmnt = new Comment();
@@ -50,6 +50,7 @@ public class CommentServiceImpl implements CommentService {
 			CommentResponseDTO dto = mapper.map(cmnt, CommentResponseDTO.class);
 			dto.setTicketIssue(cmnt.getTicket().getIssue());
 			return dto;
+			
 		}).collect(Collectors.toList());
 
 		return ResponseEntity.ok(cmntDTO);

@@ -30,7 +30,7 @@ public class AdminController {
 	@GetMapping("/testAdmin")
 	public boolean admin() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		boolean isAdmin = auth.getAuthorities().stream().anyMatch(x -> x.getAuthority().equals("ROLE_ADMIN"));
+		boolean isAdmin = auth.getAuthorities().stream().anyMatch(x -> x.getAuthority().equals("ROLE_Admin"));
 		return isAdmin;
 	}
 

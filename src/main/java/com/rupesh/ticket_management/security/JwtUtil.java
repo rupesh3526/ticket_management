@@ -22,18 +22,24 @@ public class JwtUtil {
 		Date date = new Date();
 		Date expiry = new Date(System.currentTimeMillis() + 1000 * 60 * 60);
 		String token = Jwts.builder().setSubject(user.getUsername()).setIssuedAt(date)
-				.claim("roles", user.getAuthorities()).setExpiration(expiry)
-				.signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256).compact();
+				.claim("roles", user.getAuthorities())
+				.setExpiration(expiry)
+				.signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+				.compact();
 		logger.debug("Generating JWT for username={} with expiry={}", user.getUsername(), expiry);
 		return token;
 	}
-
+	// generate Refresh Tokens
 	public String generateRefreshToken(UserDetails user) {
 		Date date = new Date();
 		Date expiry = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15);
 
-		String refreshToken = Jwts.builder().setSubject(user.getUsername()).setIssuedAt(date).setExpiration(expiry)
-				.signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256).compact();
+		String refreshToken = Jwts.builder()
+				.setSubject(user.getUsername())
+				.setIssuedAt(date).
+				setExpiration(expiry)
+				.signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+				.compact();
 
 		logger.debug("Generating JWT for username={} with expiry={}", user.getUsername(), expiry);
 
@@ -50,7 +56,8 @@ public class JwtUtil {
 	public boolean isTokenValid(String token) {
 		try {
 			Claims claims = getClaims(token);
-			return !claims.getExpiration().before(new Date());
+			return claims.getExpiration().after(new Date());
+		
 		} catch (Exception e) {
 			return false;
 		}
