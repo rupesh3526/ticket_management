@@ -1,6 +1,6 @@
 package com.rupesh.ticket_management.controller;
 
-import java.util.List;
+import java.util.List;import io.swagger.v3.oas.annotations.Operation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,7 +36,7 @@ public class TicketController {
 	public String dong() {
 		return "Dong";
 	}
-
+	@Operation(summary = "Create a new ticket", description = "Creates ticket and auto-generates AI summary")
 	@PostMapping("/createTicket")
 	public ResponseEntity<String> createTicket(@Valid @RequestBody TicketDTO ticket) {
 		String msg = ticketService.createTicket(ticket);
