@@ -14,6 +14,7 @@ public class TicketResponseDTO {
 	private String status;
 	private String createdBy;
 	private String assignedTo;
+	private String aiSummary;
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;

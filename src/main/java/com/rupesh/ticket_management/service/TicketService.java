@@ -21,5 +21,10 @@ public interface TicketService{
 	TicketResponseDTO getTicketById(Long id);
 	
 	
-	
+	String updateStatus(Long id, String status);
+	String deleteTicket(Long id);
+	String updateTicket(Long id, TicketDTO ticketDTO);
+	List<TicketResponseDTO> getTicketsByStatus(String status);
+	List<TicketResponseDTO> getTicketsByPriority(String priority);
+	String regenerateSummary(Long id);
 }

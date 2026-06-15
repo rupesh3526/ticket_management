@@ -43,6 +43,9 @@ public class Ticket {
 	@JoinColumn(name = "assignedTo", nullable = false)
 	@JsonIgnore
 	private Users assignedTo;
+	
+	@Column(length = 2000)
+	private String aiSummary;
 	@OneToMany(mappedBy = "ticket",fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Comment> comment;

@@ -1,5 +1,8 @@
 package com.rupesh.ticket_management.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -76,5 +79,37 @@ public class UserServiceImp implements UserService {
 		userDTO.setRole(role.getName());
 		return userDTO;
 	} 
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<UserResponseDTO> getAllUsers() {
+	    List<Users> users = userRepo.findAll();
+	    return users.stream()
+	            .map(user -> {UserResponseDTO userResponse = mapper.map(user, UserResponseDTO.class);
+	            userResponse.setRole(user.getRole().getName());
+	            return userResponse;
+	            })
+	            .collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional
+	public String updateUser(Long id, UserDTO userDTO) {
+	    Users user = userRepo.findById(id)
+	            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+	    user.setName(userDTO.getName());
+	    user.setEmail(userDTO.getEmail());
+	    userRepo.save(user);
+	    return "User updated successfully";
+	}
+
+	@Override
+	@Transactional
+	public String deleteUser(Long id) {
+	    Users user = userRepo.findById(id)
+	            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+	    userRepo.delete(user);
+	    return "User deleted successfully";
+	}
 
 }

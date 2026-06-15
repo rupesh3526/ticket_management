@@ -14,11 +14,13 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Role {
 	@Id

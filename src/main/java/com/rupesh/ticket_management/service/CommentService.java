@@ -11,5 +11,6 @@ public interface CommentService {
 	
 	ResponseEntity<String> createComment(CommentDTO cmntDTO);
 	ResponseEntity<List<CommentResponseDTO>> findCmntByticketId(Long id);
-
+	ResponseEntity<String> deleteComment(Long id);
+	ResponseEntity<String> updateComment(Long id, String message);
 }

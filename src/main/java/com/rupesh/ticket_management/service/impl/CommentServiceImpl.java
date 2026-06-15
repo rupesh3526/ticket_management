@@ -55,5 +55,23 @@ public class CommentServiceImpl implements CommentService {
 
 		return ResponseEntity.ok(cmntDTO);
 	}
+	@Override
+	@Transactional
+	public ResponseEntity<String> deleteComment(Long id) {
+	    Comment comment = cmntRepo.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Comment not found"));
+	    cmntRepo.delete(comment);
+	    return ResponseEntity.ok("Comment deleted successfully");
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<String> updateComment(Long id, String message) {
+	    Comment comment = cmntRepo.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Comment not found"));
+	    comment.setMessage(message);
+	    cmntRepo.save(comment);
+	    return ResponseEntity.ok("Comment updated successfully");
+	}
 
 }
