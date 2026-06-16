@@ -21,6 +21,7 @@ import com.rupesh.ticket_management.repository.UserRepo;
 import com.rupesh.ticket_management.security.JwtUtil;
 import com.rupesh.ticket_management.service.AuthService;
 import com.rupesh.ticket_management.service.LoginSessionService;
+import com.rupesh.ticket_management.service.RedisService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -34,6 +35,8 @@ public class AuthServiceImpl implements AuthService {
 	private LoginSessionService loginSessionService;
 	@Autowired
 	private UserDetailsService userDetailsService;
+	@Autowired
+	private RedisService redisService;
 	private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
 	@Override
@@ -41,9 +44,13 @@ public class AuthServiceImpl implements AuthService {
 
 		Users user = userRepo.findByEmail(request.getUsername())
 				.orElseThrow(() -> new UserNotFoundException("User Not Found "));
+		  redisService.loginAttempts(request.getUsername());
 		Authentication auth = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
+		
+		redisService.resetLoginAttempts(request.getUsername());
+		
 		logger.info("User authenticated , Generating tokens");
 		String token = jwtUtil.generateToken(userDetail);
 		String refreshToken = jwtUtil.generateRefreshToken(userDetail);

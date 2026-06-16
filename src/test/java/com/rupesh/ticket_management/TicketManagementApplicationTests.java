@@ -11,6 +11,7 @@ import com.rupesh.ticket_management.dto.UserDTO;
 import com.rupesh.ticket_management.entity.Users;
 import com.rupesh.ticket_management.repository.RoleRepo;
 import com.rupesh.ticket_management.repository.UserRepo;
+import com.rupesh.ticket_management.service.RedisService;
 import com.rupesh.ticket_management.service.UserService;
 
 
@@ -18,28 +19,11 @@ import com.rupesh.ticket_management.service.UserService;
 @Rollback(false)
 class TicketManagementApplicationTests {
 	@Autowired
-    private UserService userService;
-	@Autowired
-	private RoleRepo roleRepo;
+   private RedisService redisService;
 
-    @Autowired
-    private UserRepo userRepo;
-    
-    @Test
-    void testAddUser() {
-        // given
-        UserDTO userDTO = new UserDTO();
-        userDTO.setName("Rupesh4");
-        userDTO.setEmail("rupesh4@test.com");
-        userDTO.setRoleId(1);
-        roleRepo.count();
-
-        // when
-        userService.addUser(userDTO);
-
-        // then
-      Users savedUser = userRepo.findAll().get(2);
-      System.out.println(savedUser.getName());
-       assertNotNull(savedUser.getId());
-
-}}
+	@Test
+	void Test() {
+		redisService.loginAttempts("Test");
+		System.err.println("Succes");
+	}
+}

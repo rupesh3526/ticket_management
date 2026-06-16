@@ -107,4 +107,10 @@ public class GlobalExceptionHandler {
 		return build(HttpStatus.UNAUTHORIZED, "Invalid Username Or Password", ex.getMessage(), request);
 
 	}
+	@ExceptionHandler(MaximumLimitReachedException.class)
+	public ResponseEntity<ErrorResponse> maximimLimitReachedException(MaximumLimitReachedException ex, HttpServletRequest request) {
+
+		return build(HttpStatus.TOO_MANY_REQUESTS, "Too many login attempts. Please try after 15 minutes.", ex.getMessage(), request);
+
+	}
 }
