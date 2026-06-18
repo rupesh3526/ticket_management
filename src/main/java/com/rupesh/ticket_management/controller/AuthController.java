@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rupesh.ticket_management.dto.AuthRequest;
 import com.rupesh.ticket_management.dto.RefreshRequest;
 import com.rupesh.ticket_management.dto.UserDTO;
+import com.rupesh.ticket_management.dto.response.AuthResponse;
 import com.rupesh.ticket_management.security.JwtUtil;
 import com.rupesh.ticket_management.service.AuthService;
 import com.rupesh.ticket_management.service.UserService;
@@ -35,8 +36,16 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@Valid @RequestBody AuthRequest request) {
+		System.err.println(Thread.currentThread().getName());
+		long start = System.currentTimeMillis();
 		logger.debug("Login attempt for username={}", request.getUsername());
-		return ResponseEntity.ok(authService.login(request));
+		AuthResponse auth=  authService.login(request);
+		System.err.println(
+			    "Login took "
+			    + (System.currentTimeMillis() - start)
+			    + " ms"
+			);
+		return ResponseEntity.ok(auth);
 
 	}
 

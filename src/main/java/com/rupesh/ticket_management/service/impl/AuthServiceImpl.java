@@ -42,20 +42,27 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public AuthResponse login(AuthRequest request) {
 
-		Users user = userRepo.findByEmail(request.getUsername())
-				.orElseThrow(() -> new UserNotFoundException("User Not Found "));
-		  redisService.loginAttempts(request.getUsername());
+		//redisService.loginAttempts(request.getUsername());
+		long start = System.currentTimeMillis();
 		Authentication auth = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+		System.err.println(
+			    "AuthenticationManger took "
+			    + (System.currentTimeMillis() - start)
+			    + " ms"
+			);
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
-		
-		redisService.resetLoginAttempts(request.getUsername());
-		
+
+		//redisService.resetLoginAttempts(request.getUsername());
+		long start2 = System.currentTimeMillis();
 		logger.info("User authenticated , Generating tokens");
 		String token = jwtUtil.generateToken(userDetail);
 		String refreshToken = jwtUtil.generateRefreshToken(userDetail);
-		loginSessionService.saveSession(user, refreshToken);
-		logger.info("Sessio Saved");
+		System.err.println(
+			    "Token genration  took "
+			    + (System.currentTimeMillis() - start2)
+			    + " ms"
+			);
 
 		return new AuthResponse(token, refreshToken, "Login Successful");
 
@@ -71,9 +78,9 @@ public class AuthServiceImpl implements AuthService {
 		String newAccessToken = jwtUtil.generateToken(userDetails);
 		String newRefreshToken = jwtUtil.generateRefreshToken(userDetails);
 		logger.info("Tokens Generated");
-  
+
 		loginSessionService.saveSession(user, newRefreshToken);
 
-		return  new AuthResponse(newAccessToken,newRefreshToken,"New accessToken Generated");
+		return new AuthResponse(newAccessToken, newRefreshToken, "New accessToken Generated");
 	}
 }
