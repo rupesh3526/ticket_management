@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public AuthResponse login(AuthRequest request) {
 
-		//redisService.loginAttempts(request.getUsername());
+		redisService.loginAttempts(request.getUsername());
 		long start = System.currentTimeMillis();
 		Authentication auth = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
 			);
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
-		//redisService.resetLoginAttempts(request.getUsername());
+		redisService.resetLoginAttempts(request.getUsername());
 		long start2 = System.currentTimeMillis();
 		logger.info("User authenticated , Generating tokens");
 		String token = jwtUtil.generateToken(userDetail);

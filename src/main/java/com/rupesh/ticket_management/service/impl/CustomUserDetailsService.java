@@ -35,31 +35,32 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		long start2 = System.currentTimeMillis(); 
-		UserRedisDTO userDTO  = new UserRedisDTO();// redisService.loadUserFromRedis(username);
+		UserRedisDTO userDTO  =  redisService.loadUserFromRedis(username);
 		logger.error("Attempting to load user by username={}", username);
 
-		/*
-		 * if (userDTO == null) {
-		 * 
-		 * Users user = loadUser(username); userDTO = new UserRedisDTO();
-		 * 
-		 * userDTO.setUsername(user.getEmail());
-		 * userDTO.setPassword(user.getPassword());
-		 * userDTO.setRole(user.getRole().getName());
-		 * redisService.saveUserInRedis(userDTO); }
-		 * 
-		 * System.err.println( "load user redis  " + (System.currentTimeMillis() -
-		 * start2) + " ms" );
-		 */
 		
-		  Users user = loadUser(username);
-		  userDTO = new UserRedisDTO();
+		  if (userDTO == null) {
+		  
+		  Users user = loadUser(username); userDTO = new UserRedisDTO();
 		  
 		  userDTO.setUsername(user.getEmail());
 		  userDTO.setPassword(user.getPassword());
 		  userDTO.setRole(user.getRole().getName());
-		  //redisService.saveUserInRedis(userDTO); System.err.println(
+		  redisService.saveUserInRedis(userDTO); }
+		  
+		  System.err.println(
+					 "load user redis + db took " + (System.currentTimeMillis() - start2) + " ms" );
 		 
+		/*
+		 * long start2 = System.currentTimeMillis(); Users user = loadUser(username);
+		 * userDTO = new UserRedisDTO();
+		 * 
+		 * userDTO.setUsername(user.getEmail());
+		 * userDTO.setPassword(user.getPassword());
+		 * userDTO.setRole(user.getRole().getName());
+		 * //redisService.saveUserInRedis(userDTO); System.err.println(
+		 * "load user  took " + (System.currentTimeMillis() - start2) + " ms" );
+		 */
 		
 		logger.error("loaded user by username from db={}", userDTO.getUsername());
 
