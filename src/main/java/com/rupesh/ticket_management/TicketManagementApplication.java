@@ -1,6 +1,8 @@
 package com.rupesh.ticket_management;
 
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -15,6 +17,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @SpringBootApplication
@@ -35,6 +40,7 @@ public class TicketManagementApplication {
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();
 	}
+
 	
 	 @Bean
 	    public OpenAPI customOpenAPI() {
@@ -55,4 +61,24 @@ public class TicketManagementApplication {
 	        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
 	        return template;
 	    }
+	 
+	 @Bean
+	 CorsConfigurationSource corsConfigurationSource() {
+	     CorsConfiguration configuration = new CorsConfiguration();
+
+	     configuration.setAllowedOrigins(List.of(
+	             "http://localhost:63342"
+	     ));
+
+	     configuration.setAllowedMethods(List.of("*"));
+	     configuration.setAllowedHeaders(List.of("*"));
+	     configuration.setAllowCredentials(true);
+
+	     UrlBasedCorsConfigurationSource source =
+	             new UrlBasedCorsConfigurationSource();
+
+	     source.registerCorsConfiguration("/**", configuration);
+
+	     return source;
+	 }
 }

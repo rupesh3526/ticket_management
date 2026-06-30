@@ -3,8 +3,6 @@ package com.rupesh.ticket_management.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,7 +32,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		long start2 = System.currentTimeMillis(); 
 		UserRedisDTO userDTO  =  redisService.loadUserFromRedis(username);
 		logger.error("Attempting to load user by username={}", username);
 
@@ -48,8 +45,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		  userDTO.setRole(user.getRole().getName());
 		  redisService.saveUserInRedis(userDTO); }
 		  
-		  System.err.println(
-					 "load user redis + db took " + (System.currentTimeMillis() - start2) + " ms" );
 		 
 		/*
 		 * long start2 = System.currentTimeMillis(); Users user = loadUser(username);
@@ -72,7 +67,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 			    + (System.currentTimeMillis() - start)
 			    + " ms"
 			);
-		logger.debug("UserDetails successfully built for username={}", username);
 		return userDetail;
 	}
 

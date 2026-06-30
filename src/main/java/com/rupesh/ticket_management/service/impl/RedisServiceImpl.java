@@ -43,7 +43,7 @@ public class RedisServiceImpl implements RedisService {
 
 	@Override
 	public void saveUserInRedis(UserRedisDTO user) {
-		redisTemplate.opsForValue().set(user.getUsername(), user);
+		redisTemplate.opsForValue().set(user.getUsername(), user,15,TimeUnit.MINUTES);
 		
 		
 	}
